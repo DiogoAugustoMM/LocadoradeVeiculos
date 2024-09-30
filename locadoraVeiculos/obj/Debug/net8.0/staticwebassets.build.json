@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "b88CqkMWL5KQUm8VK/xjwwdppRRu4eY2ekzalx27kDg=",
+  "Source": "locadoraVeiculos",
+  "BasePath": "_content/locadoraVeiculos",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
