@@ -11,35 +11,60 @@ namespace locadoraVeiculos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ManutencaosController : ControllerBase
+    public class ManutencoesController : ControllerBase
     {
         private readonly LocadoraContext _context;
 
-        public ManutencaosController(LocadoraContext context)
+        public ManutencoesController(LocadoraContext context)
         {
             _context = context;
         }
 
-        // GET: api/Manutencaos
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Manutencao>>> GetManutencoes()
-        {
-            return await _context.Manutencoes.ToListAsync();
-        }
 
         // GET: api/Manutencaos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Manutencao>> GetManutencao(int id)
+        public async Task<ActionResult<dynamic>> GetManutencaoComVeiculo(int id)
         {
-            var manutencao = await _context.Manutencoes.FindAsync(id);
+            var query = await (from manutencao in _context.Manutencoes
+                               join veiculo in _context.Veiculos on manutencao.VeiculoId equals veiculo.ID into veiculosJoin
+                               from veiculo in veiculosJoin.DefaultIfEmpty()
+                               where manutencao.ManutencaoId == id // Filtra pela manutenção com o ID especificado
+                               select new
+                               {
+                                   ManutencaoId = manutencao.ManutencaoId,
+                                   DataManutencao = manutencao.Data,
+                                   CustoManutencao = manutencao.Custo,
+                                   Descricao = manutencao.DescricaoServico,
+                                   VeiculoModelo = veiculo != null ? veiculo.Modelo : "Desconhecido",
+                                   VeiculoPlaca = veiculo != null ? veiculo.Placa : "Desconhecido"
+                               }).FirstOrDefaultAsync(); // Usa FirstOrDefault para pegar um único registro
 
-            if (manutencao == null)
+            if (query == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna 404 se não encontrar a manutenção
             }
 
-            return manutencao;
+            return Ok(query); // Retorna a manutenção encontrada
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetManutencoesComVeiculos()
+        {
+            var query = await (from manutencao in _context.Manutencoes
+                               join veiculo in _context.Veiculos on manutencao.VeiculoId equals veiculo.ID into veiculosJoin
+                               from veiculo in veiculosJoin.DefaultIfEmpty()
+                               select new
+                               {
+                                   ManutencaoId = manutencao.ManutencaoId,
+                                   DataManutencao = manutencao.Data,
+                                   CustoManutencao = manutencao.Custo,
+                                   Descricao = manutencao.DescricaoServico,
+                                   VeiculoModelo = veiculo != null ? veiculo.Modelo : "Desconhecido",
+                                   VeiculoPlaca = veiculo != null ? veiculo.Placa : "Desconhecido"
+                               }).ToListAsync();
+
+            return Ok(query);
+        }
+
 
         // PUT: api/Manutencaos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -77,11 +102,22 @@ namespace locadoraVeiculos.Controllers
         [HttpPost]
         public async Task<ActionResult<Manutencao>> PostManutencao(Manutencao manutencao)
         {
+            if (_context.Veiculos.Find(manutencao.VeiculoId) == null)
+            {
+                return NotFound($"Veículo com ID {manutencao.VeiculoId} não encontrado.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Manutencoes.Add(manutencao);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetManutencao", new { id = manutencao.ManutencaoId }, manutencao);
+            return CreatedAtAction(nameof(GetManutencaoComVeiculo), new { id = manutencao.ManutencaoId }, manutencao);
         }
+
 
         // DELETE: api/Manutencaos/5
         [HttpDelete("{id}")]
@@ -103,5 +139,6 @@ namespace locadoraVeiculos.Controllers
         {
             return _context.Manutencoes.Any(e => e.ManutencaoId == id);
         }
+
     }
 }

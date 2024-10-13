@@ -11,11 +11,11 @@ namespace locadoraVeiculos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VeiculoesController : ControllerBase
+    public class VeiculosController : ControllerBase
     {
         private readonly LocadoraContext _context;
 
-        public VeiculoesController(LocadoraContext context)
+        public VeiculosController(LocadoraContext context)
         {
             _context = context;
         }

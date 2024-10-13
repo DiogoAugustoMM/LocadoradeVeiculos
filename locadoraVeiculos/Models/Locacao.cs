@@ -10,15 +10,12 @@ namespace locadoraVeiculos.Models
 
         public int VeiculoId { get; set; }
         [ForeignKey("VeiculoId")]
-        public Veiculo Veiculo { get; set; }
 
         public int ClienteId { get; set; }
         [ForeignKey("ClienteId")]
-        public Cliente Cliente { get; set; }
 
         public int FuncionarioId { get; set; }
         [ForeignKey("FuncionarioId")]
-        public Funcionario Funcionario { get; set; }
 
         public DateTime Data { get; set; }
         public double ValorTotal { get; set; }

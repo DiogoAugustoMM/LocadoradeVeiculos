@@ -10,7 +10,6 @@ namespace locadoraVeiculos.Models
 
         public int VeiculoId { get; set; }
         [ForeignKey("VeiculoId")]
-        public Veiculo Veiculo { get; set; }
 
         public DateTime Data { get; set; }
         public string? DescricaoServico { get; set; }

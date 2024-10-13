@@ -218,9 +218,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.LocacaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.LocacoesController",
     "Method": "GetLocacoes",
-    "RelativePath": "api/Locacaos",
+    "RelativePath": "api/Locacoes",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -238,9 +238,9 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.LocacaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.LocacoesController",
     "Method": "PostLocacao",
-    "RelativePath": "api/Locacaos",
+    "RelativePath": "api/Locacoes",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -264,35 +264,9 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.LocacaosController",
-    "Method": "GetLocacao",
-    "RelativePath": "api/Locacaos/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "locadoraVeiculos.Models.Locacao",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "locadoraVeiculos.Controllers.LocacaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.LocacoesController",
     "Method": "PutLocacao",
-    "RelativePath": "api/Locacaos/{id}",
+    "RelativePath": "api/Locacoes/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -311,9 +285,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.LocacaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.LocacoesController",
     "Method": "DeleteLocacao",
-    "RelativePath": "api/Locacaos/{id}",
+    "RelativePath": "api/Locacoes/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -327,16 +301,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.ManutencaosController",
-    "Method": "GetManutencoes",
-    "RelativePath": "api/Manutencaos",
+    "ContainingType": "locadoraVeiculos.Controllers.LocacoesController",
+    "Method": "GetLocacoesComDetalhes",
+    "RelativePath": "api/Locacoes/LocacoesComDetalhes",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[locadoraVeiculos.Models.Manutencao, locadoraVeiculos, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -347,9 +321,45 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.ManutencaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.LocacoesController",
+    "Method": "GetLocacaoComDetalhes",
+    "RelativePath": "api/Locacoes/LocacoesComDetalhesPorID/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "locadoraVeiculos.Controllers.ManutencoesController",
+    "Method": "GetManutencoesComVeiculos",
+    "RelativePath": "api/Manutencoes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "locadoraVeiculos.Controllers.ManutencoesController",
     "Method": "PostManutencao",
-    "RelativePath": "api/Manutencaos",
+    "RelativePath": "api/Manutencoes",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -373,9 +383,9 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.ManutencaosController",
-    "Method": "GetManutencao",
-    "RelativePath": "api/Manutencaos/{id}",
+    "ContainingType": "locadoraVeiculos.Controllers.ManutencoesController",
+    "Method": "GetManutencaoComVeiculo",
+    "RelativePath": "api/Manutencoes/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -386,22 +396,12 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "locadoraVeiculos.Models.Manutencao",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.ManutencaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.ManutencoesController",
     "Method": "PutManutencao",
-    "RelativePath": "api/Manutencaos/{id}",
+    "RelativePath": "api/Manutencoes/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -420,9 +420,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.ManutencaosController",
+    "ContainingType": "locadoraVeiculos.Controllers.ManutencoesController",
     "Method": "DeleteManutencao",
-    "RelativePath": "api/Manutencaos/{id}",
+    "RelativePath": "api/Manutencoes/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -436,9 +436,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.VeiculoesController",
+    "ContainingType": "locadoraVeiculos.Controllers.VeiculosController",
     "Method": "GetVeiculos",
-    "RelativePath": "api/Veiculoes",
+    "RelativePath": "api/Veiculos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -456,9 +456,9 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.VeiculoesController",
+    "ContainingType": "locadoraVeiculos.Controllers.VeiculosController",
     "Method": "PostVeiculo",
-    "RelativePath": "api/Veiculoes",
+    "RelativePath": "api/Veiculos",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -482,9 +482,9 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.VeiculoesController",
+    "ContainingType": "locadoraVeiculos.Controllers.VeiculosController",
     "Method": "GetVeiculo",
-    "RelativePath": "api/Veiculoes/{id}",
+    "RelativePath": "api/Veiculos/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -508,9 +508,9 @@
     ]
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.VeiculoesController",
+    "ContainingType": "locadoraVeiculos.Controllers.VeiculosController",
     "Method": "PutVeiculo",
-    "RelativePath": "api/Veiculoes/{id}",
+    "RelativePath": "api/Veiculos/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -529,9 +529,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "locadoraVeiculos.Controllers.VeiculoesController",
+    "ContainingType": "locadoraVeiculos.Controllers.VeiculosController",
     "Method": "DeleteVeiculo",
-    "RelativePath": "api/Veiculoes/{id}",
+    "RelativePath": "api/Veiculos/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

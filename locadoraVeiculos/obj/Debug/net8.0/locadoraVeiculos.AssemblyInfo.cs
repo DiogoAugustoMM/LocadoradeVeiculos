@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("locadoraVeiculos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+788c7cbd99f976e0465ddb450d57ef1f2ecc4d61")]
 [assembly: System.Reflection.AssemblyProductAttribute("locadoraVeiculos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("locadoraVeiculos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

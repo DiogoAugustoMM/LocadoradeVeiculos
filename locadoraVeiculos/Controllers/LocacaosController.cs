@@ -11,11 +11,11 @@ namespace locadoraVeiculos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LocacaosController : ControllerBase
+    public class LocacoesController : ControllerBase
     {
         private readonly LocadoraContext _context;
 
-        public LocacaosController(LocadoraContext context)
+        public LocacoesController(LocadoraContext context)
         {
             _context = context;
         }
@@ -28,17 +28,49 @@ namespace locadoraVeiculos.Controllers
         }
 
         // GET: api/Locacaos/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Locacao>> GetLocacao(int id)
+        [HttpGet("LocacoesComDetalhesPorID/{id}")]
+        public async Task<ActionResult<dynamic>> GetLocacaoComDetalhes(int id)
         {
-            var locacao = await _context.Locacoes.FindAsync(id);
+            var query = await (from locacao in _context.Locacoes
+                               join cliente in _context.Clientes on locacao.ClienteId equals cliente.ID
+                               join veiculo in _context.Veiculos on locacao.VeiculoId equals veiculo.ID
+                               where locacao.LocacaoId == id // Filtra pela locação com o ID especificado
+                               select new
+                               {
+                                   LocacaoId = locacao.LocacaoId,
+                                   DataLocacao = locacao.Data,
+                                   ValorTotal = locacao.ValorTotal,
+                                   ClienteNome = cliente.Nome,
+                                   ClienteEmail = cliente.Email,
+                                   VeiculoModelo = veiculo.Modelo,
+                                   VeiculoPlaca = veiculo.Placa
+                               }).FirstOrDefaultAsync(); // Usa FirstOrDefault para pegar um único registro
 
-            if (locacao == null)
+            if (query == null)
             {
-                return NotFound();
+                return NotFound(); // Retorna 404 se não encontrar a locação
             }
 
-            return locacao;
+            return Ok(query); // Retorna a locação encontrada
+        }
+        [HttpGet("LocacoesComDetalhes")]
+        public async Task<ActionResult<IEnumerable<dynamic>>> GetLocacoesComDetalhes()
+        {
+            var query = await (from locacao in _context.Locacoes
+                               join cliente in _context.Clientes on locacao.ClienteId equals cliente.ID
+                               join veiculo in _context.Veiculos on locacao.VeiculoId equals veiculo.ID
+                               select new
+                               {
+                                   LocacaoId = locacao.LocacaoId,
+                                   DataLocacao = locacao.Data,
+                                   ValorTotal = locacao.ValorTotal,
+                                   ClienteNome = cliente.Nome,
+                                   ClienteEmail = cliente.Email,
+                                   VeiculoModelo = veiculo.Modelo,
+                                   VeiculoPlaca = veiculo.Placa
+                               }).ToListAsync();
+
+            return Ok(query);
         }
 
         // PUT: api/Locacaos/5
@@ -77,11 +109,36 @@ namespace locadoraVeiculos.Controllers
         [HttpPost]
         public async Task<ActionResult<Locacao>> PostLocacao(Locacao locacao)
         {
+            // Verificar se o veículo existe
+            var veiculo = await _context.Veiculos.FindAsync(locacao.VeiculoId);
+            if (veiculo == null)
+            {
+                return NotFound($"Veículo com ID {locacao.VeiculoId} não encontrado.");
+            }
+
+            // Verificar se o cliente existe
+            var cliente = await _context.Clientes.FindAsync(locacao.ClienteId);
+            if (cliente == null)
+            {
+                return NotFound($"Cliente com ID {locacao.ClienteId} não encontrado.");
+            }
+
+            // Verificar se o funcionário existe
+            var funcionario = await _context.Funcionarios.FindAsync(locacao.FuncionarioId);
+            if (funcionario == null)
+            {
+                return NotFound($"Funcionário com ID {locacao.FuncionarioId} não encontrado.");
+            }
+
+            // Adicionar a locação ao contexto e salvar
             _context.Locacoes.Add(locacao);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLocacao", new { id = locacao.LocacaoId }, locacao);
+            return CreatedAtAction(nameof(GetLocacaoComDetalhes), new { id = locacao.LocacaoId }, locacao);
+
         }
+
+
 
         // DELETE: api/Locacaos/5
         [HttpDelete("{id}")]
@@ -103,5 +160,6 @@ namespace locadoraVeiculos.Controllers
         {
             return _context.Locacoes.Any(e => e.LocacaoId == id);
         }
+        
     }
 }
